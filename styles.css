@@ -94,13 +94,12 @@ ul li > p {
   cursor: pointer;
 }
 
-.header svg g:hover path {
+.header svg:hover g path {
   transition: 0.5s;
   fill: white;
 }
 
 .header svg:hover g path {
-  rotation: 0.5s;
   transform: rotate(360deg);
   -webkit-transform: rotate(360deg);
 }
