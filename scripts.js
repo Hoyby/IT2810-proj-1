@@ -6,7 +6,7 @@ $(document).ready(function () {
     });
 });
 
-$("#documentation").hide();
+$("#documentation").hide(); // hide documentation on load
 
 //----------- Fourier series -------------
 function fourier() {
@@ -15,7 +15,7 @@ function fourier() {
     canvas.width = 1200;
     canvas.height = 400;
 
-    // input field for setting degree
+    // get value from input field for setting degree
     $('#degree').val(3);
     let degree = $('#degree').val();
 
@@ -25,16 +25,16 @@ function fourier() {
             degree = val
     }
 
-    fourier.setDegree = setDegree;
+    fourier.setDegree = setDegree; // make nested function available outside main function
 
     let initRadius = 100
-    let originY = canvas.height / 2 // center in middle
+    let originY = canvas.height / 2 // center YAxis in middle
     let originX = initRadius * 3
 
     let time = 0
     let traceY = []
 
-
+    // function for running animation
     function furierWave() {
         ctx.strokeStyle = 'rgba(255,255,255,0.5)'
 
@@ -112,7 +112,7 @@ function fourier() {
     }, 16.66)
 }
 
-fourier()
+fourier() //run init and animation
 //----------- Fourier series end ----------
 
 
@@ -121,28 +121,30 @@ fourier()
 
 //--------------- clickMe -----------------
 function clickMe() {
-    let hasNotRun = true;
+    let hasNotRun = true; // check for if animation has already run
+
     let canvas = $("#clickMeCanvas").get(0);
     let ctx = canvas.getContext('2d')
     canvas.width = 200;
     canvas.height = 200;
 
     let initRadius = 35
-    let originX = canvas.width / 2 // center in middle
+    let originX = canvas.width / 2
     let originY = canvas.height / 2
-    let x = 0
+    let x = 0 // frame variable
 
     ctx.strokeStyle = 'rgba(255,255,255,0.7)'
     ctx.lineWidth = 2
     ctx.fillStyle = 'rgba(255,255,255,0.9)'
 
-    // Init
+    // init click me button
     ctx.beginPath()
     ctx.arc(originX, originY, initRadius, 0, 2 * Math.PI)
     ctx.font = "16px Arial";
     ctx.fillText("Click me", originX - 30, originY + 5);
     ctx.stroke()
 
+    // runs animation on click
     function runClickAnimation() {
         if (hasNotRun) {
             ctx.clearRect(0, 0, canvas.width, canvas.width);
@@ -151,6 +153,8 @@ function clickMe() {
             ctx.strokeStyle = 'rgba(255,255,255,0.7)'
             ctx.lineWidth = 2
             ctx.fillStyle = 'rgba(255,255,255,0.9)'
+
+            // initial circle and text - fadeout
             ctx.beginPath()
             let initCircleRadius = -0.01 * x ** 2 - 0.14 * x + initRadius
             if (initCircleRadius < 0) {
@@ -159,12 +163,11 @@ function clickMe() {
             ctx.arc(originX, originY, initCircleRadius, 0, 2 * Math.PI)
 
             let fontSize = -0.005 * x ** 2 - 0.14 * x + 16
-            console.log(fontSize);
             ctx.font = fontSize + "px Arial";
             ctx.fillText("Click me", 0.01 * x ** 2 + 0.14 * x + originX - 28, originY + 5);
             ctx.stroke()
 
-            //drawing circles
+            //drawing new circles with animation
             ctx.beginPath()
             ctx.arc(originX, originY, -0.01 * x ** 2 + 0.7 * x + initRadius, -1.57079, 0.09 * x - 1.6621)
             ctx.strokeStyle = '#DF4C54'
@@ -191,7 +194,7 @@ function clickMe() {
             ctx.stroke()
 
 
-            x += 1
+            x += 1 // calculate next frame
         }
     }
 
@@ -199,21 +202,20 @@ function clickMe() {
 
         let startTime = new Date().getTime();
         let interval = setInterval(function () {
-            if (new Date().getTime() - startTime > 1000) {
+            if (new Date().getTime() - startTime > 1000) { //animation runs for 1 second
                 clearInterval(interval);
                 x = 0
                 hasNotRun = false
                 return;
             }
             runClickAnimation()
-        }, 16.66);
+        }, 16.66); // 1000ms / 60fps = 16.66 ms/frame
 
     }
 
     clickMe.onClick = onClick;
 
-
-
 }
-clickMe()
+
+clickMe() // run init, wait for click
 //----------- clickMe end ----------

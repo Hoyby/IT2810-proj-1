@@ -16,6 +16,7 @@
   <body>
     <div class="layout">
       <div class="header">
+        <!-- Logo -->
         <svg height="80" width="82">
           <g transform="translate(30,40)">
             <path d="M0 0 0 25A25 25 0 0 1-25 0Z" fill="#F178AE" />
@@ -24,9 +25,10 @@
 
             <path d="M0,25 a1,1 0 0,0 0,-25" fill="#F178AE" />
             <path d="M0,0 a1,1 0 0,0 0,25" fill="#F03F97" />
-            <text x="-25" y="40" class="small" fill="gray">hover me</text>
+            <text x="-25" y="40" id="logoDesc" fill="gray">hover me</text>
           </g>
         </svg>
+
         <h1>hello world</h1>
       </div>
 
@@ -42,12 +44,14 @@
             using SVG and the Canvas API.
           </p>
         </div>
+        <!-- ClickMe animation -->
         <canvas id="clickMeCanvas" onClick="clickMe.onClick()"> </canvas>
       </div>
 
+      <!-- Fourier animation -->
       <div class="wrapper">
         <h2>Fourier series representation using circles:</h2>
-        <div class="row">
+        <div class="flexRow">
           <label for="degree">Degree ( 1-300 ):</label>
           <input
             type="text"
@@ -59,9 +63,11 @@
         <canvas id="fourierCanvas"> </canvas>
       </div>
 
+      
       <button id="toggleDocumentation">
         Toggle documentation <i class="arrow"></i>
       </button>
+      <!-- Documentation -->
       <div id="documentation">
         <ul>
           <li>
@@ -69,7 +75,7 @@
             Flexbox-layout, forklar dine valg.
             <p>
               Flexbox er hovedsakelig brukt til å aligne elementer i blandt
-              annet top headeren og selektering av degree. <br />
+              annet top headeren. <br />
               Grid er brukt i denne dokumentasjonen.
             </p>
           </li>
@@ -78,25 +84,28 @@
             <ul>
               <li>
                 <p>
-                  Logo er laget med SVG (tittel: hello world), her er det
-                  hovedsakelig brukt paths og arcs. Animasjonen er gjort med
+                  Logo er laget med SVG (tittel: hover me), her er det
+                  hovedsakelig brukt paths med arcs. Animasjonen og fargebytte er gjort med
                   css.
                 </p>
               </li>
               <li>
                 <p>
                   Fourier serie-representasjonen er laget med canvas i
-                  scripts.js . Denne har en loop som kalkulerer radius på alle
-                  sirkelene, samt x og y posisjon for senter av sirkelene for
-                  hver tidsenhet til funksjonen. Deretter bruker den y
-                  posisjonen og en liste til å trace bølgen.
+                  scripts.js. furierWave() funksjonen kalkulerer nye x og y verdier
+                  for alle elementer i hver animasjons frame ved hjelp av en loop (som 
+                  også kalkulerer radius til sirkler ol.). Deretter legger den y versiene
+                  i en liste og bruker disse til å trace bølgen.
                 </p>
               </li>
               <li>
                 <p>
                   ClickMe animasjonen er også laget med canvas i samme scripts
                   fil, og bruker en del formler (fra regresjonsanalyse) for
-                  animasjon.
+                  animasjon. Virkemåten er ganske lik som i Fourier funksjonen med
+                  en SetInterval som kjøres i ett sekund etter at ClickMe har blitt klikket på.
+                  Deretter har man en variabel som økes ved hver animasjons frame som brukes til
+                  å kalkulere neste bilde
                 </p>
               </li>
             </ul>
@@ -111,6 +120,9 @@
             <p>
               Delevopment ble gjort i chrome v92.0.4515.159, deretter klikket
               jeg meg litt rundt i FireFox dev edition og i MS edge.
+              Her oppdaget jeg at animasjonen til spessielt ClickMe ikke animeres likt i firefox.
+              Ser ut til at animasjonen stopper for tidlig. Mulig dette har med at SetInterval 
+              funksjonen fungerer forskjellig (mtp antall frames i sekundet) i chrome og firefox.
             </p>
           </li>
 
