@@ -16,9 +16,16 @@
   <body>
     <div class="layout">
       <div class="header">
-        <!-- Logo -->
+        <!-- Logo (manually written)-->
+        <!-- Animation done in CSS -->
         <svg height="80" width="82">
           <g transform="translate(30,40)">
+
+            <!-- Path breakdown of first path: -->
+            <!-- M0 0 0 25 -> Line from 0,0 to 0,25 -->
+            <!-- A25 25 0 0 1-25 0 -> Elliptical arch to -25,0 / xAxis raduis=25 / x-axis rotation=0 / large-arc-flag=1 / sweep-flag=0 -->
+            <!-- Z -> Close path  -->
+
             <path d="M0 0 0 25A25 25 0 0 1-25 0Z" fill="#F178AE" />
             <path d="M0 0 0-25A25 25 0 0 1 25 0Z" fill="#FBB019" />
             <path d="M0 0 -25-0A25 25 0 0 1 0 -25Z" fill="#F25D23" />
@@ -44,7 +51,7 @@
             using SVG and the Canvas API.
           </p>
         </div>
-        <!-- ClickMe animation -->
+        <!-- ClickMe animation (only works once by design) -->
         <canvas id="clickMeCanvas" onClick="clickMe.onClick()"> </canvas>
       </div>
 

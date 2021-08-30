@@ -78,6 +78,8 @@ label {
   align-items: center;
 }
 
+/* - Logo - */
+
 .header svg g path {
   transition: 0.5s;
   cursor: pointer;
@@ -93,13 +95,15 @@ label {
   -webkit-transform: rotate(360deg);
 }
 
-/* ---------- Header end ---------- */
-
-/* ---------- Specific elements ---------- */
-
 #logoDesc {
   font: italic 13px sans-serif;
 }
+
+/* - Logo end - */
+
+/* ---------- Header end ---------- */
+
+/* ---------- Specific elements ---------- */
 
 #documentation > ul {
   display: grid;
