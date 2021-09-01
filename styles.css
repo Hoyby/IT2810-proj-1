@@ -1,38 +1,38 @@
 /* ---------- Document ---------- */
 * {
-  margin: 0;
-  padding: 0;
-  text-decoration: none;
-  font-family: "Montserrat", "Raleway", sans-serif;
-  color: white;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    font-family: 'Montserrat', 'Raleway', sans-serif;
+    color: white;
 }
 
 html,
 body {
-  min-height: 100%;
+    min-height: 100%;
 }
 
 body {
-  padding-right: 50px;
-  padding-left: 50px;
-  background: radial-gradient(at top left, rgb(46, 46, 46), #000 100%);
+    padding-right: 50px;
+    padding-left: 50px;
+    background: radial-gradient(at top left, rgb(46, 46, 46), #000 100%);
 }
 @media (max-width: 768px) {
-  body {
-    background: rgb(26, 26, 26);
-  }
+    body {
+        background: rgb(26, 26, 26);
+    }
 }
 
 h1,
 h2,
 h3,
 p {
-  margin: 16px 0;
-  line-height: 1.5em;
+    margin: 16px 0;
+    line-height: 1.5em;
 }
 
 label {
-  margin: 0px 0px 8px 16px;
+    margin: 0px 0px 8px 16px;
 }
 
 /* ---------- Document end ---------- */
@@ -40,63 +40,63 @@ label {
 /* ---------- Wrappers and Layouts ---------- */
 
 .wrapper {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .layout {
-  min-height: calc(100vh - 40px);
-  max-width: 1200px;
-  margin: 0 auto;
+    min-height: calc(100vh - 40px);
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .flexRow {
-  display: flex;
-  flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
 
 .gridContainer {
-  display: grid;
-  grid-template-columns: minmax(300px, calc(100% - 280px)) 200px;
-  gap: 80px;
-  justify-items: center;
-  align-items: center;
-  margin: 0 0 50px 0;
+    display: grid;
+    grid-template-columns: minmax(300px, calc(100% - 280px)) 200px;
+    gap: 80px;
+    justify-items: center;
+    align-items: center;
+    margin: 0 0 50px 0;
 }
 @media (max-width: 768px) {
-  .gridContainer {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
+    .gridContainer {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
 }
 
 /* ---------- Wrappers and Layouts end ---------- */
 
 /* ---------- Header ---------- */
 .header {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 /* - Logo - */
 
 .header svg g path {
-  transition: 0.5s;
-  cursor: pointer;
+    transition: 0.5s;
+    cursor: pointer;
 }
 
 .header svg:hover g path {
-  transition: 0.5s;
-  fill: white;
+    transition: 0.5s;
+    fill: white;
 }
 
 .header svg:hover g path {
-  transform: rotate(360deg);
-  -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
 }
 
 #logoDesc {
-  font: italic 13px sans-serif;
+    font: italic 13px sans-serif;
 }
 
 /* - Logo end - */
@@ -106,38 +106,38 @@ label {
 /* ---------- Specific elements ---------- */
 
 #documentation > ul {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 80px;
-  margin: 0px 0px 80px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 80px;
+    margin: 0px 0px 80px 0;
 }
 
 #documentation > ul > li {
-  padding-top: 5px;
-  border-top: 1px solid #dfdfdf;
+    padding-top: 5px;
+    border-top: 1px solid #dfdfdf;
 }
 
 #documentation > ul li ul,
 #documentation > ul li > p {
-  margin-left: 1em;
-  word-wrap: break-word;
+    margin-left: 1em;
+    word-wrap: break-word;
 }
 
 #degree {
-  margin: 0px 16px 16px 16px;
-  color: black;
-  width: 50px;
+    margin: 0px 16px 16px 16px;
+    color: black;
+    width: 50px;
 }
 
 #toggleDocumentation {
-  color: rgb(0, 0, 0);
-  padding: 10px;
-  margin: 50px 0 50px 0;
-  font-weight: 600;
-  cursor: pointer;
-  background-color: white;
-  border: solid 1px rgb(0, 0, 0);
-  border-radius: 2px;
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    margin: 50px 0 50px 0;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: white;
+    border: solid 1px rgb(0, 0, 0);
+    border-radius: 2px;
 }
 
 /* ---------- Specific elements end ---------- */

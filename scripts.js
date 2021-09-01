@@ -1,31 +1,137 @@
-
 //Toggle documentation
 $(document).ready(function () {
-    $("#toggleDocumentation").click(function () {
-        $("#documentation").toggle();
-    });
-});
+    $('#toggleDocumentation').click(function () {
+        $('#documentation').toggle()
+    })
+})
 
-$("#documentation").hide(); // hide documentation on load
+$('#documentation').hide() // hide documentation on load
+
+//----------- Logo -------------
+function logo() {
+    let canvas = $('#logo').get(0)
+    // let $canvas = $("#logo")
+    // let canvasOffset = $canvas.offset();
+    // let offsetX = canvasOffset.left;
+    // let offsetY = canvasOffset.top;
+
+    let ctx = canvas.getContext('2d')
+    canvas.width = 70
+    canvas.height = 70
+
+    let initRadius = 28
+    let originX = canvas.width / 2
+    let originY = canvas.height / 2
+    let x = 0
+    let step = 1
+
+    //clearing canvas
+    ctx.fillStyle = '#F178AE'
+    ctx.clearRect(0, 0, canvas.width, canvas.width)
+
+    let circle = {
+        radius: initRadius,
+        hoverColor: 'white',
+        wasInside: false,
+    }
+    let smallCircle = {
+        radius: initRadius / 2,
+        hoverColor: 'white',
+        wasInside: false,
+    }
+
+    function drawCircle(circle, fillStyle, centerX, centerY, startAngle, endAngle, isInside) {
+        ctx.beginPath()
+        ctx.fillStyle = isInside ? circle.hoverColor : fillStyle
+        ctx.moveTo(originX, originY)
+        ctx.arc(centerX, centerY, circle.radius, startAngle, endAngle)
+        ctx.fill()
+        circle.wasInside = isInside
+    }
+
+    drawCircle(circle, '#F178AE', originX, originY, 0.5 * Math.PI, Math.PI, false)
+    drawCircle(circle, '#F25D23', originX, originY, Math.PI, 1.5 * Math.PI, false)
+    drawCircle(circle, '#FBB019', originX, originY, 1.5 * Math.PI, 0, false)
+    drawCircle(smallCircle, '#F178AE', originX, originY + initRadius / 2, 1.5 * Math.PI, 0.5 * Math.PI, false)
+    drawCircle(smallCircle, '#F03F97', originX, originY + initRadius / 2, 0.5 * Math.PI, 1.5 * Math.PI, false)
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.width)
+        drawCircle(circle, '#F178AE', originX, originY, (0.02 * x + 0.5) * Math.PI, (0.02 * x + 1) * Math.PI, false)
+        drawCircle(circle, '#F25D23', originX, originY, (0.02 * x + 1) * Math.PI, (0.02 * x + 1.5) * Math.PI, false)
+        drawCircle(circle, '#FBB019', originX, originY, (0.02 * x + 1.5) * Math.PI, (0.02 * x + 0) * Math.PI, false)
+        drawCircle(
+            smallCircle,
+            '#F178AE',
+            -(initRadius / 2) * Math.sin(x / (50 / Math.PI)) + originY,
+            (initRadius / 2) * Math.cos(x / (50 / Math.PI)) + originY,
+            (0.02 * x + 1.5) * Math.PI,
+            (0.02 * x + 0.5) * Math.PI,
+            false
+        )
+        drawCircle(
+            smallCircle,
+            '#F03F97',
+            -(initRadius / 2) * Math.sin(x / (50 / Math.PI)) + originY,
+            (initRadius / 2) * Math.cos(x / (50 / Math.PI)) + originY,
+            (0.02 * x + 0.5) * Math.PI,
+            (0.02 * x + 1.5) * Math.PI,
+            false
+        )
+    }
+
+    let interval
+    canvas.addEventListener('mouseover', function () {
+        clearInterval(interval)
+
+        interval = setInterval(function () {
+            if (x > 100 || x < 0 - step) {
+                clearInterval(interval)
+                console.log('clear in', x)
+            } else {
+                animate()
+                console.log(x)
+                x += step
+            }
+        }, 16.66) // 1000ms / 60fps = 16.66 ms/frame
+    })
+
+    canvas.addEventListener('mouseout', function () {
+        clearInterval(interval)
+
+        interval = setInterval(function () {
+            if (x > 100 + step || x < 0) {
+                clearInterval(interval)
+                console.log('clear out', x)
+            } else {
+                animate()
+                console.log(x)
+                x -= step
+            }
+        }, 16.66) // 1000ms / 60fps = 16.66 ms/frame
+    })
+}
+
+logo()
+//----------- Logo end ----------
 
 //----------- Fourier series -------------
 function fourier() {
-    let canvas = $("#fourierCanvas").get(0);
+    let canvas = $('#fourierCanvas').get(0)
     let ctx = canvas.getContext('2d')
-    canvas.width = 1200;
-    canvas.height = 400;
+    canvas.width = 1200
+    canvas.height = 400
 
     // get value from input field for setting degree
-    $('#degree').val(3);
-    let degree = $('#degree').val();
+    $('#degree').val(3)
+    let degree = $('#degree').val()
 
     function setDegree() {
         let val = $('#degree').val()
-        if (val > 0 && val < 301)
-            degree = val
+        if (val > 0 && val < 301) degree = val
     }
 
-    fourier.setDegree = setDegree; // make nested function available outside main function
+    fourier.setDegree = setDegree // make nested function available outside main function
 
     let initRadius = 100
     let originY = canvas.height / 2 // center YAxis in middle
@@ -46,8 +152,7 @@ function fourier() {
 
         //clearing canvas
         ctx.fillStyle = 'transparent'
-        ctx.clearRect(0, 0, canvas.width, canvas.width);
-
+        ctx.clearRect(0, 0, canvas.width, canvas.width)
 
         // let originX = initRadius + 200
         let x = originX
@@ -57,7 +162,7 @@ function fourier() {
 
         // ----- Circles and rotation -----
         for (let i = 0; i < degree; i++) {
-            let n = (i * 2) + 1
+            let n = i * 2 + 1
             let radius = initRadius * (4 / (n * Math.PI))
             x += radius * Math.cos(n * time)
             y += radius * Math.sin(n * time)
@@ -94,7 +199,7 @@ function fourier() {
 
         // trace line
         ctx.beginPath()
-        ctx.strokeStyle = "white"
+        ctx.strokeStyle = 'white'
         ctx.moveTo(originX * 2, traceY[0])
 
         // ----- Trace -----
@@ -115,18 +220,14 @@ function fourier() {
 fourier() //run init and animation
 //----------- Fourier series end ----------
 
-
-
-
-
 //--------------- clickMe -----------------
 function clickMe() {
-    let hasNotRun = true; // check for if animation has already run
+    let hasNotRun = true // check for if animation has already run
 
-    let canvas = $("#clickMeCanvas").get(0);
+    let canvas = $('#clickMeCanvas').get(0)
     let ctx = canvas.getContext('2d')
-    canvas.width = 200;
-    canvas.height = 200;
+    canvas.width = 200
+    canvas.height = 200
 
     let initRadius = 35
     let originX = canvas.width / 2
@@ -140,15 +241,14 @@ function clickMe() {
     // init click me button
     ctx.beginPath()
     ctx.arc(originX, originY, initRadius, 0, 2 * Math.PI)
-    ctx.font = "16px Arial";
-    ctx.fillText("Click me", originX - 30, originY + 5);
+    ctx.font = '16px Arial'
+    ctx.fillText('Click me', originX - 30, originY + 5)
     ctx.stroke()
 
     // runs animation on click
     function runClickAnimation() {
         if (hasNotRun) {
-            ctx.clearRect(0, 0, canvas.width, canvas.width);
-
+            ctx.clearRect(0, 0, canvas.width, canvas.width)
 
             ctx.strokeStyle = 'rgba(255,255,255,0.7)'
             ctx.lineWidth = 2
@@ -163,8 +263,8 @@ function clickMe() {
             ctx.arc(originX, originY, initCircleRadius, 0, 2 * Math.PI)
 
             let fontSize = -0.005 * x ** 2 - 0.14 * x + 16
-            ctx.font = fontSize + "px Arial";
-            ctx.fillText("Click me", 0.01 * x ** 2 + 0.14 * x + originX - 28, originY + 5);
+            ctx.font = fontSize + 'px Arial'
+            ctx.fillText('Click me', 0.01 * x ** 2 + 0.14 * x + originX - 28, originY + 5)
             ctx.stroke()
 
             //drawing new circles with animation
@@ -193,28 +293,25 @@ function clickMe() {
             ctx.strokeStyle = '#3CDBE7'
             ctx.stroke()
 
-
             x += 1 // calculate next frame
         }
     }
 
     function onClick() {
-
-        let startTime = new Date().getTime();
+        let startTime = new Date().getTime()
         let interval = setInterval(function () {
-            if (new Date().getTime() - startTime > 1000) { //animation runs for 1 second
-                clearInterval(interval);
+            if (new Date().getTime() - startTime > 1000) {
+                //animation runs for 1 second
+                clearInterval(interval)
                 x = 0
                 hasNotRun = false
-                return;
+                return
             }
             runClickAnimation()
-        }, 16.66); // 1000ms / 60fps = 16.66 ms/frame
-
+        }, 16.66) // 1000ms / 60fps = 16.66 ms/frame
     }
 
-    clickMe.onClick = onClick;
-
+    clickMe.onClick = onClick
 }
 
 clickMe() // run init, wait for click

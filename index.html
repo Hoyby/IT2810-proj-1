@@ -1,157 +1,187 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Project 1</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300&display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  </head>
-  <body>
-    <div class="layout">
-      <div class="header">
-        <!-- Logo (manually written)-->
-        <!-- Animation done in CSS -->
-        <svg height="80" width="82">
-          <g transform="translate(30,40)">
+    <head>
+        <meta charset="utf-8" />
+        <title>Project 1</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            media="screen"
+            href="styles.css"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300&display=swap"
+            rel="stylesheet"
+        />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div class="layout">
+            <div class="header">
+                <!-- Logo (manually written)-->
+                <!-- Animation done in CSS -->
+                <svg height="80" width="82">
+                    <g transform="translate(30,40)">
+                        <!-- Path breakdown of first path: -->
+                        <!-- M0 0 0 25 -> Line from 0,0 to 0,25 -->
+                        <!-- A25 25 0 0 1-25 0 -> Elliptical arch to -25,0 / xAxis raduis=25 / x-axis rotation=0 / large-arc-flag=1 / sweep-flag=0 -->
+                        <!-- Z -> Close path  -->
 
-            <!-- Path breakdown of first path: -->
-            <!-- M0 0 0 25 -> Line from 0,0 to 0,25 -->
-            <!-- A25 25 0 0 1-25 0 -> Elliptical arch to -25,0 / xAxis raduis=25 / x-axis rotation=0 / large-arc-flag=1 / sweep-flag=0 -->
-            <!-- Z -> Close path  -->
+                        <path d="M0 0 0 25A25 25 0 0 1-25 0Z" fill="#F178AE" />
+                        <path
+                            d="M0 0 -25-0A25 25 0 0 1 0 -25Z"
+                            fill="#F25D23"
+                        />
+                        <path d="M0 0 0-25A25 25 0 0 1 25 0Z" fill="#FBB019" />
 
-            <path d="M0 0 0 25A25 25 0 0 1-25 0Z" fill="#F178AE" />
-            <path d="M0 0 0-25A25 25 0 0 1 25 0Z" fill="#FBB019" />
-            <path d="M0 0 -25-0A25 25 0 0 1 0 -25Z" fill="#F25D23" />
+                        <path d="M0,25 a1,1 0 0,0 0,-25" fill="#F178AE" />
+                        <path d="M0,0 a1,1 0 0,0 0,25" fill="#F03F97" />
+                        <text x="-25" y="40" id="logoDesc" fill="gray">
+                            hover me
+                        </text>
+                    </g>
+                </svg>
 
-            <path d="M0,25 a1,1 0 0,0 0,-25" fill="#F178AE" />
-            <path d="M0,0 a1,1 0 0,0 0,25" fill="#F03F97" />
-            <text x="-25" y="40" id="logoDesc" fill="gray">hover me</text>
-          </g>
-        </svg>
+                <h1>Hello world</h1>
+            </div>
 
-        <h1>hello world</h1>
-      </div>
+            <div class="gridContainer">
+                <div>
+                    <h2>Welcome to my first IT2810 project!</h2>
+                    <p>
+                        I'm a third year student at NTNU and I like programming.
+                    </p>
+                    <p>
+                        The objective of this excersie is to both repeat, and
+                        learn some of the basic elements of a webpage, namely:
+                        HTML, CSS and Javascript.
+                        <br />
+                        This page contains 2 animated and/or interactive
+                        illustrations made using SVG and the Canvas API.
+                    </p>
+                </div>
+                <!-- ClickMe animation (only works once by design) -->
+                <canvas id="clickMeCanvas" onClick="clickMe.onClick()">
+                </canvas>
+            </div>
 
-      <div class="gridContainer">
-        <div>
-          <h3>Welcome to my firstW IT2810 project!</h3>
-          <p>I'm a third year student at NTNU and I like programming.</p>
-          <p>
-            The objective of this excersie is to both repeat, and learn some of
-            the basic elements of a webpage, namely: HTML, CSS and Javascript.
-            <br />
-            This page contains 2 animated and/or interactive illustrations made
-            using SVG and the Canvas API.
-          </p>
+            <!-- Logo animation -->
+            <canvas id="logo"> </canvas>
+
+            <!-- Fourier animation -->
+            <div class="wrapper">
+                <h2>Fourier series representation using circles:</h2>
+                <div class="flexRow">
+                    <label for="degree">Degree ( 1-300 ):</label>
+                    <input
+                        type="text"
+                        name="degree"
+                        onchange="fourier.setDegree()"
+                        id="degree"
+                    />
+                </div>
+                <canvas id="fourierCanvas"> </canvas>
+            </div>
+
+            <button id="toggleDocumentation">
+                Toggle documentation <i class="arrow"></i>
+            </button>
+            <!-- Documentation -->
+            <div id="documentation">
+                <ul>
+                    <li>
+                        Gi en beskrivelser av hvordan du har brukt CSS-grid og
+                        Flexbox-layout, forklar dine valg.
+                        <p>
+                            Flexbox er hovedsakelig brukt til å aligne elementer
+                            i blandt annet top headeren. <br />
+                            Grid er brukt i denne dokumentasjonen.
+                        </p>
+                    </li>
+                    <li>
+                        Gi en beskrivelse av hvordan du har brukt HTML canvas og
+                        SVG i HTML.
+                        <ul>
+                            <li>
+                                <p>
+                                    Logo er laget med SVG (tittel: hover me),
+                                    her er det hovedsakelig brukt paths med
+                                    arcs. Animasjonen og fargebytte er gjort med
+                                    css.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Fourier serie-representasjonen er laget med
+                                    canvas i scripts.js. furierWave() funksjonen
+                                    kalkulerer nye x og y verdier for alle
+                                    elementer i hver animasjons frame ved hjelp
+                                    av en loop (som også kalkulerer radius til
+                                    sirkler ol.). Deretter legger den y versiene
+                                    i en liste og bruker disse til å trace
+                                    bølgen.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    ClickMe animasjonen er også laget med canvas
+                                    i samme scripts fil, og bruker en del
+                                    formler (fra regresjonsanalyse) for
+                                    animasjon. Virkemåten er ganske lik som i
+                                    Fourier funksjonen med en SetInterval som
+                                    kjøres i ett sekund etter at ClickMe har
+                                    blitt klikket på. Deretter har man en
+                                    variabel som økes ved hver animasjons frame
+                                    som brukes til å kalkulere neste bilde
+                                </p>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Gi en kort beskrivelse av hvordan du har brukt jQuery.
+                        <p>
+                            jQuery brukes i scripts.js til å selectere elementer
+                            i DOMen.
+                        </p>
+                    </li>
+                    <li>
+                        Gi en kort beskrivelse av hvordan du har utført
+                        cross-browser testing.
+                        <p>
+                            Delevopment ble gjort i chrome v92.0.4515.159,
+                            deretter klikket jeg meg litt rundt i FireFox dev
+                            edition og i MS edge. Her oppdaget jeg at
+                            animasjonen til spessielt ClickMe ikke animeres likt
+                            i firefox. Ser ut til at animasjonen stopper for
+                            tidlig. Mulig dette har med at SetInterval
+                            funksjonen fungerer forskjellig (mtp antall frames i
+                            sekundet) i chrome og firefox.
+                        </p>
+                    </li>
+
+                    <li>
+                        List opp de viktigste (mest nyttige) informasjonskildene
+                        du har brukt (tutorials, websider, bøker).
+                        <p>
+                            Har brukt w3schools for dokumentasjon på både canvas
+                            API og for SVG. Ellers stackoverflow til litt
+                            småtteri innimellom.
+                        </p>
+                    </li>
+
+                    <li>
+                        Husk å oppgi kilder hvis du gjenbruker kodesnutter.
+                        <p>
+                            Inspo til Fourier serie code tatt fra:
+                            https://github.com/notshekhar/fouriesSeries/blob/master/index.js
+                        </p>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <!-- ClickMe animation (only works once by design) -->
-        <canvas id="clickMeCanvas" onClick="clickMe.onClick()"> </canvas>
-      </div>
-
-      <!-- Fourier animation -->
-      <div class="wrapper">
-        <h2>Fourier series representation using circles:</h2>
-        <div class="flexRow">
-          <label for="degree">Degree ( 1-300 ):</label>
-          <input
-            type="text"
-            name="degree"
-            onchange="fourier.setDegree()"
-            id="degree"
-          />
-        </div>
-        <canvas id="fourierCanvas"> </canvas>
-      </div>
-
-      
-      <button id="toggleDocumentation">
-        Toggle documentation <i class="arrow"></i>
-      </button>
-      <!-- Documentation -->
-      <div id="documentation">
-        <ul>
-          <li>
-            Gi en beskrivelser av hvordan du har brukt CSS-grid og
-            Flexbox-layout, forklar dine valg.
-            <p>
-              Flexbox er hovedsakelig brukt til å aligne elementer i blandt
-              annet top headeren. <br />
-              Grid er brukt i denne dokumentasjonen.
-            </p>
-          </li>
-          <li>
-            Gi en beskrivelse av hvordan du har brukt HTML canvas og SVG i HTML.
-            <ul>
-              <li>
-                <p>
-                  Logo er laget med SVG (tittel: hover me), her er det
-                  hovedsakelig brukt paths med arcs. Animasjonen og fargebytte er gjort med
-                  css.
-                </p>
-              </li>
-              <li>
-                <p>
-                  Fourier serie-representasjonen er laget med canvas i
-                  scripts.js. furierWave() funksjonen kalkulerer nye x og y verdier
-                  for alle elementer i hver animasjons frame ved hjelp av en loop (som 
-                  også kalkulerer radius til sirkler ol.). Deretter legger den y versiene
-                  i en liste og bruker disse til å trace bølgen.
-                </p>
-              </li>
-              <li>
-                <p>
-                  ClickMe animasjonen er også laget med canvas i samme scripts
-                  fil, og bruker en del formler (fra regresjonsanalyse) for
-                  animasjon. Virkemåten er ganske lik som i Fourier funksjonen med
-                  en SetInterval som kjøres i ett sekund etter at ClickMe har blitt klikket på.
-                  Deretter har man en variabel som økes ved hver animasjons frame som brukes til
-                  å kalkulere neste bilde
-                </p>
-              </li>
-            </ul>
-          </li>
-          <li>
-            Gi en kort beskrivelse av hvordan du har brukt jQuery.
-            <p>jQuery brukes i scripts.js til å selectere elementer i DOMen.</p>
-          </li>
-          <li>
-            Gi en kort beskrivelse av hvordan du har utført cross-browser
-            testing.
-            <p>
-              Delevopment ble gjort i chrome v92.0.4515.159, deretter klikket
-              jeg meg litt rundt i FireFox dev edition og i MS edge.
-              Her oppdaget jeg at animasjonen til spessielt ClickMe ikke animeres likt i firefox.
-              Ser ut til at animasjonen stopper for tidlig. Mulig dette har med at SetInterval 
-              funksjonen fungerer forskjellig (mtp antall frames i sekundet) i chrome og firefox.
-            </p>
-          </li>
-
-          <li>
-            List opp de viktigste (mest nyttige) informasjonskildene du har
-            brukt (tutorials, websider, bøker).
-            <p>
-              Har brukt w3schools for dokumentasjon på både canvas API og for
-              SVG. Ellers stackoverflow til litt småtteri innimellom.
-            </p>
-          </li>
-
-          <li>
-            Husk å oppgi kilder hvis du gjenbruker kodesnutter.
-            <p>
-              Inspo til Fourier serie code tatt fra:
-              https://github.com/notshekhar/fouriesSeries/blob/master/index.js
-            </p>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <script src="scripts.js"></script>
-  </body>
+        <script src="scripts.js"></script>
+    </body>
 </html>
