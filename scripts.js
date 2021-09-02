@@ -2,38 +2,34 @@
 $(document).ready(function () {
     $('#toggleDocumentation').click(function () {
         $('#documentation').toggle()
+        $('.content').toggle()
     })
 })
 
 $('#documentation').hide() // hide documentation on load
+$('.content').show() // hide documentation on load
 
 //----------- Logo -------------
 function logo() {
     let canvas = $('#logo').get(0)
-    // let $canvas = $("#logo")
-    // let canvasOffset = $canvas.offset();
-    // let offsetX = canvasOffset.left;
-    // let offsetY = canvasOffset.top;
 
     let ctx = canvas.getContext('2d')
-    canvas.width = 70
-    canvas.height = 70
+    canvas.width = 80
+    canvas.height = 80
 
-    let initRadius = 28
+    let initRadius = 25
     let originX = canvas.width / 2
     let originY = canvas.height / 2
-    let x = 0
-    let step = 1
-
-    //clearing canvas
-    ctx.fillStyle = '#F178AE'
-    ctx.clearRect(0, 0, canvas.width, canvas.width)
+    let x = 0 // animation progress (0-100)
+    let step = 4 // no. of x to skip each frame (to controll speed)
+    let interval // for moving through the frames
 
     let circle = {
         radius: initRadius,
         hoverColor: 'white',
         wasInside: false,
     }
+
     let smallCircle = {
         radius: initRadius / 2,
         hoverColor: 'white',
@@ -42,24 +38,19 @@ function logo() {
 
     function drawCircle(circle, fillStyle, centerX, centerY, startAngle, endAngle, isInside) {
         ctx.beginPath()
-        ctx.fillStyle = isInside ? circle.hoverColor : fillStyle
+        ctx.fillStyle = isInside ? circle.hoverColor : fillStyle // changes color based on isInside boolean
         ctx.moveTo(originX, originY)
         ctx.arc(centerX, centerY, circle.radius, startAngle, endAngle)
         ctx.fill()
         circle.wasInside = isInside
     }
 
-    drawCircle(circle, '#F178AE', originX, originY, 0.5 * Math.PI, Math.PI, false)
-    drawCircle(circle, '#F25D23', originX, originY, Math.PI, 1.5 * Math.PI, false)
-    drawCircle(circle, '#FBB019', originX, originY, 1.5 * Math.PI, 0, false)
-    drawCircle(smallCircle, '#F178AE', originX, originY + initRadius / 2, 1.5 * Math.PI, 0.5 * Math.PI, false)
-    drawCircle(smallCircle, '#F03F97', originX, originY + initRadius / 2, 0.5 * Math.PI, 1.5 * Math.PI, false)
-
-    function animate() {
+    function animate(isInside) {
+        ctx.fillStyle = 'transparent'
         ctx.clearRect(0, 0, canvas.width, canvas.width)
-        drawCircle(circle, '#F178AE', originX, originY, (0.02 * x + 0.5) * Math.PI, (0.02 * x + 1) * Math.PI, false)
-        drawCircle(circle, '#F25D23', originX, originY, (0.02 * x + 1) * Math.PI, (0.02 * x + 1.5) * Math.PI, false)
-        drawCircle(circle, '#FBB019', originX, originY, (0.02 * x + 1.5) * Math.PI, (0.02 * x + 0) * Math.PI, false)
+        drawCircle(circle, '#F178AE', originX, originY, (0.02 * x + 0.5) * Math.PI, (0.02 * x + 1) * Math.PI, isInside)
+        drawCircle(circle, '#F25D23', originX, originY, (0.02 * x + 1) * Math.PI, (0.02 * x + 1.5) * Math.PI, isInside)
+        drawCircle(circle, '#FBB019', originX, originY, (0.02 * x + 1.5) * Math.PI, (0.02 * x + 0) * Math.PI, isInside)
         drawCircle(
             smallCircle,
             '#F178AE',
@@ -67,7 +58,7 @@ function logo() {
             (initRadius / 2) * Math.cos(x / (50 / Math.PI)) + originY,
             (0.02 * x + 1.5) * Math.PI,
             (0.02 * x + 0.5) * Math.PI,
-            false
+            isInside
         )
         drawCircle(
             smallCircle,
@@ -76,36 +67,42 @@ function logo() {
             (initRadius / 2) * Math.cos(x / (50 / Math.PI)) + originY,
             (0.02 * x + 0.5) * Math.PI,
             (0.02 * x + 1.5) * Math.PI,
-            false
+            isInside
         )
+        ctx.fillStyle = 'gray'
+        ctx.font = 'italic 12px sans-serif'
+        ctx.fillText('hover me 2', 13, 79)
     }
 
-    let interval
+    // clearing canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.width)
+
+    // initialize drawing
+    animate(false)
+
+    // mouse enter canvas event listner
     canvas.addEventListener('mouseover', function () {
         clearInterval(interval)
 
         interval = setInterval(function () {
             if (x > 100 || x < 0 - step) {
                 clearInterval(interval)
-                console.log('clear in', x)
             } else {
-                animate()
-                console.log(x)
+                animate(true)
                 x += step
             }
         }, 16.66) // 1000ms / 60fps = 16.66 ms/frame
     })
 
+    // mouse exit canvas event listner
     canvas.addEventListener('mouseout', function () {
         clearInterval(interval)
 
         interval = setInterval(function () {
             if (x > 100 + step || x < 0) {
                 clearInterval(interval)
-                console.log('clear out', x)
             } else {
-                animate()
-                console.log(x)
+                animate(false)
                 x -= step
             }
         }, 16.66) // 1000ms / 60fps = 16.66 ms/frame
